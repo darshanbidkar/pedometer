@@ -19,7 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
-
+/*
+* Created by Darshan reddy and Darshan Bidkar
+*
+* */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private ProgressBar mStepProgress;
@@ -36,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int recentStepCount;
     private Button resetButton;
 
+    /*
+    * @author: Darshan Reddy
+    *
+    * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    /*
+    * @author: darshan Reddy
+    * */
     protected void onResume() {
 
         super.onResume();
@@ -98,12 +108,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    /*
+    * @author: darshan Bidkar
+    *
+    * */
     protected void onStop() {
         super.onStop();
-        mSensorManager.unregisterListener(this, mStepCounterSensor);
-        mSensorManager.unregisterListener(this, mStepDetectorSensor);
+       // mSensorManager.unregisterListener(this, mStepCounterSensor);
+       // mSensorManager.unregisterListener(this, mStepDetectorSensor);
     }
 
+    /*
+    * @author: darshan bidkar
+    *
+    * */
     @Override
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor = event.sensor;
@@ -118,10 +136,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             updateStepsCount(value);
         } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             updateStepsCount(value);
-
+            Log.d("step",""+value);
         }
     }
-
+    /*
+    * @author: darshan bidkar
+    * */
     public void updateStepsCount(int steps) {
         String  miles =  new DecimalFormat("#.##").format(steps/2112.0);
         stepView.setText("" + steps);
@@ -130,11 +150,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mStepProgress.setProgress(steps);
     }
 
+    /*
+    *
+    * @author: darshan reddy
+    * */
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 //        Toast.makeText(MainActivity.this, ""+accuracy, Toast.LENGTH_SHORT).show();
     }
 
+    /*
+    * @author: darshan bidkar
+    * */
     public View.OnClickListener getResetListener() {
         return new Button.OnClickListener(){
 
