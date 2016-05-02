@@ -6,19 +6,22 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
+
 /*
 * Created by Darshan reddy and Darshan Bidkar
 *
@@ -48,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mStepProgress = (ProgressBar) findViewById(R.id.step_progress_count);
-        stepLayout = (LinearLayout)findViewById(R.id.step_layout);
+        stepLayout = (LinearLayout) findViewById(R.id.step_layout);
         resetButton = (Button) findViewById(R.id.reset_btn);
         resetButton.setOnClickListener(getResetListener());
-        stepLayout.setOnClickListener(new LinearLayout.OnClickListener(){
+        stepLayout.setOnClickListener(new LinearLayout.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -59,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(intent);
             }
         });
-        caloriesLayour = (LinearLayout)findViewById(R.id.calorie_layout);
-        caloriesLayour.setOnClickListener(new LinearLayout.OnClickListener(){
+        caloriesLayour = (LinearLayout) findViewById(R.id.calorie_layout);
+        caloriesLayour.setOnClickListener(new LinearLayout.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -68,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(intent);
             }
         });
-        milesLayout = (LinearLayout)findViewById(R.id.distance_layout);
-        milesLayout.setOnClickListener(new LinearLayout.OnClickListener(){
+        milesLayout = (LinearLayout) findViewById(R.id.distance_layout);
+        milesLayout.setOnClickListener(new LinearLayout.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         stepView = (TextView) findViewById(R.id.step_count);
         distanceView = (TextView) findViewById(R.id.distance_count);
         calorieView = (TextView) findViewById(R.id.calorie_count);
-
+        readAgain();
     }
 
     /*
@@ -114,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     * */
     protected void onStop() {
         super.onStop();
-       // mSensorManager.unregisterListener(this, mStepCounterSensor);
-       // mSensorManager.unregisterListener(this, mStepDetectorSensor);
+        // mSensorManager.unregisterListener(this, mStepCounterSensor);
+        // mSensorManager.unregisterListener(this, mStepDetectorSensor);
     }
 
     /*
@@ -136,16 +139,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             updateStepsCount(value);
         } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             updateStepsCount(value);
-            Log.d("step",""+value);
+            Log.d("step", "" + value);
         }
     }
+
     /*
     * @author: darshan bidkar
     * */
     public void updateStepsCount(int steps) {
-        String  miles =  new DecimalFormat("#.##").format(steps/2112.0);
+        String miles = new DecimalFormat("#.##").format(steps / 2112.0);
         stepView.setText("" + steps);
-        calorieView.setText("" + steps*40/1000);
+        calorieView.setText("" + steps * 40 / 1000);
         distanceView.setText(String.format("" + miles));
         mStepProgress.setProgress(steps);
     }
@@ -164,12 +168,34 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     * @author: darshan bidkar
     * */
     public View.OnClickListener getResetListener() {
-        return new Button.OnClickListener(){
+        return new Button.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Need to implement", Toast.LENGTH_SHORT).show();
+                try {
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("step_counter.txt", MODE_WORLD_READABLE | MODE_APPEND)));
+                    writer.append(stepView.getText().toString().trim() + "\n");
+                    writer.close();
+                    // Reset counter
+                    stepView.setText("0");
+                    // readAgain();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
+    }
+
+    private void readAgain() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput("step_counter.txt")));
+            String input;
+            while ((input = bufferedReader.readLine()) != null) {
+                Log.d("Reading from file", input);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
