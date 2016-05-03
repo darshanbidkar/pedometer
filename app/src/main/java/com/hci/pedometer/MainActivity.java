@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /*
     * @author: darshan Bidkar
-    *
+    *We will not unregister the listner cause we need that to keep listning even when the app is not running
     * */
     protected void onStop() {
         super.onStop();
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /*
     * @author: darshan bidkar
-    *
+    *This function senses the step counts and increments the count
     * */
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /*
     * @author: darshan bidkar
+    *
+    * This function converts the step count to calorie count and miles
     * */
     public void updateStepsCount(int steps) {
         String miles = new DecimalFormat("#.##").format(steps / 2112.0);
@@ -166,6 +168,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /*
     * @author: darshan bidkar
+    *
+    * This function resets the count of the steps
     * */
     public View.OnClickListener getResetListener() {
         return new Button.OnClickListener() {
@@ -185,7 +189,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         };
     }
-
+    /*
+    * @author: Darshan Bidkar
+    *
+    * helper function to  read the previous steps history from the files
+    * */
     private void readAgain() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput("step_counter.txt")));
