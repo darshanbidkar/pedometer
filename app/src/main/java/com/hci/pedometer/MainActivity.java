@@ -25,6 +25,17 @@ import java.text.DecimalFormat;
 /*
 * Created by Darshan reddy and Darshan Bidkar
 *
+* PREAMBLE :
+*
+* Team members: Darshan Narayana reddy and Darshan Bidkar
+* Class Name: Human computer Interactions (CS 6326.001)
+*
+* Assignment: Final Project to design a useful Pedometer
+*
+* Professor: John Cole
+*
+* Purpose: To design a useful, full pledged Android application which uses sensors.
+*
 * */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
