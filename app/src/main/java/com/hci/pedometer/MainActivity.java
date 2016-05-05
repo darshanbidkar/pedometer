@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /*
 * Created by Darshan reddy and Darshan Bidkar
@@ -50,8 +52,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private LinearLayout stepLayout;
     private LinearLayout caloriesLayour;
     private LinearLayout milesLayout;
+    private TextView time_since_reset;
     private int recentStepCount;
     private Button resetButton;
+    private long startTime;
+    private Timer timer;
 
     /*
     * @author: Darshan Reddy
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mStepProgress = (ProgressBar) findViewById(R.id.step_progress_count);
         stepLayout = (LinearLayout) findViewById(R.id.step_layout);
         resetButton = (Button) findViewById(R.id.reset_btn);
+        time_since_reset = (TextView) findViewById(R.id.time_since_reset);
         resetButton.setOnClickListener(getResetListener());
         stepLayout.setOnClickListener(new LinearLayout.OnClickListener() {
 
@@ -190,6 +196,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 try {
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("step_counter.txt", MODE_WORLD_READABLE | MODE_APPEND)));
                     writer.append(stepView.getText().toString().trim() + "\n");
+                    time_since_reset.setText("00:00");
+                    updateStepsCount(0);
                     writer.close();
                     // Reset counter
                     stepView.setText("0");
@@ -200,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         };
     }
+
     /*
     * @author: Darshan Bidkar
     *

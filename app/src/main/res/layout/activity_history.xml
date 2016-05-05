@@ -11,30 +11,36 @@
 <!--<android.support.design.widget.FloatingActionButton--><!--android:id="@+id/fab"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="bottom|end"--><!--android:layout_margin="@dimen/fab_margin"--><!--android:src="@android:drawable/ic_dialog_email" />-->
 
 <!--</android.support.design.widget.CoordinatorLayout>-->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="Last week's step count history"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
 
     <ProgressBar
         android:id="@+id/first"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-
         android:indeterminate="false" />
 
     <ProgressBar
         android:id="@+id/second"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
@@ -42,8 +48,8 @@
     <ProgressBar
         android:id="@+id/third"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
@@ -51,8 +57,8 @@
     <ProgressBar
         android:id="@+id/fourth"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
@@ -60,8 +66,8 @@
     <ProgressBar
         android:id="@+id/fifth"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
@@ -69,8 +75,8 @@
     <ProgressBar
         android:id="@+id/sixth"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
@@ -78,8 +84,8 @@
     <ProgressBar
         android:id="@+id/seventh"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
         android:indeterminate="false" />
