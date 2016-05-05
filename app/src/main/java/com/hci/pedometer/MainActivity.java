@@ -21,8 +21,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /*
 * Created by Darshan reddy and Darshan Bidkar
@@ -110,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         distanceView = (TextView) findViewById(R.id.distance_count);
         calorieView = (TextView) findViewById(R.id.calorie_count);
         readAgain();
+
+        time_since_reset.setText(new SimpleDateFormat("hh:mm", Locale.US).format(new Date(System.currentTimeMillis())));
     }
 
     /*
@@ -196,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 try {
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("step_counter.txt", MODE_WORLD_READABLE | MODE_APPEND)));
                     writer.append(stepView.getText().toString().trim() + "\n");
-                    time_since_reset.setText("00:00");
                     updateStepsCount(0);
                     writer.close();
                     // Reset counter
